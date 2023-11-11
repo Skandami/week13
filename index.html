@@ -1,5 +1,5 @@
 
-!<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -46,30 +46,48 @@ display: inline-block;
             
         </form>
         <script>
+        const ONE_DAY_IN_MS = 86400000;
+        // получение элементов DOM
             const birthday = document.getElementById('birthday');
             const result = document.getElementById('result');
             const reset = document.getElementById('reset');
-            let number = "день";
-
-            function dayTitle() {
-     if (result.value > 10) return 'дней';
-    num = result.value%10;
-    if (num == 1) return 'день';
-    if ([2,3,4].includes(num)) return 'дня';// 22, 23, 24  дня- не работают. Запуталась.
-    if ([5,6,7,8,9, 0].includes(num)) return 'дней'; 
-}
-
-            if(birthday && result && reset){
-                birthday.addEventListener('change', function(event){
-                    const birthdayDay = event.target.valueAsDate.getTime() 
-                    const date = new Date();
-                    const today = date.getTime();
     
-                    if(birthdayDay > today){ 
             
-                        result.value= Math.floor((birthdayDay-today)/86400000)
+
+            function dayTitle(days) {
+  //правило для чисел от 10 до 20 включительно
+  if (days >= 10 && days <= 20) return 'дней';
+
+  // определение последней цифры числа 
+  let lastDigit = days % 10;
+
+  // определение правильности склонения в зависимости от последней цифры 
+
+  switch (lastDigit) {
+    case 1:
+        return 'день';
+        case 2:
+            case 3:
+                case 4: return 'дня';
+                default: return 'дней';
+
+  }}
+//  проверка наличния необходимых элементов на странице
+            if (birthday && result && reset){
+                // обработчик изменения даты рождения
+                birthday.addEventListener('change', function(event){
+                    // получение выбранной даты рождения
+                    const birthdayDay = event.target.valueAsDate.getTime() 
+
+                 // получение текущей даты рождения
+                    const today = new Date().getTime();
+    
+                         // если выбранная дата рождения в будущем
+                    if(birthdayDay > today){ 
+            let daysLeft = Math.floor((birthdayDay-today)/ONE_DAY_IN_MS);
+                        result.value= daysLeft;
                  
-                    result.textContent = "До Твоего Дня Рождения " + result.value + " " + dayTitle() + "!"}
+                    result.textContent = "До Твоего Дня Рождения " + daysLeft + " " + dayTitle(daysLeft) + "!"}
                     else {
                         alert("Упс! Дата не должна быть прошедшей"); // если введена прошедшая дата
                     }
@@ -78,7 +96,8 @@ display: inline-block;
             reset.addEventListener('click', function(event){
                     document.forms["form"].reset(); // сброс результата
                 });
-            }
-        </script>
+            };
+            
+   </script>
     </body>
 </html>

@@ -12,7 +12,7 @@ const currentMonth = currentDate.getMonth();
 console.log(currentMonth);
 //Задание 4
 // Создайте переменную currentDay и присвойте ей текущий день месяца. Значение выведите в консоль.
-const currentDay = currentDate.getDay();
+const currentDay = currentDate.getDate();
 console.log(currentDay);
 //Задание 5
 // Создайте переменную birthday и присвойте ей дату вашего дня рождения в текущем году. Значение выведите в консоль.
@@ -54,7 +54,7 @@ console.log(futureYear);
 
 //Задание 13
 // Создайте переменную futureDateInFutureYear и присвойте ей дату вашего дня рождения в будущем году (futureYear). Значение выведите в консоль.
-futureDateInFutureYear = new Date(birthday.getTime() + 365 * 24 *3600 * 1000);
+futureDateInFutureYear = new Date(birthday.getTime() + futureYear * 24 *3600 * 1000);
 console.log(futureDateInFutureYear);
 //Задание 14
 // Выведите в консоль разницу в годах между futureYear и текущим годом
@@ -74,8 +74,8 @@ console.log(ms); // 1327611110417 (таймстамп)
 //Задание 17
 // Используя метод Date.parse(), попытайтесь преобразовать переменную wrongDate в дату. Добавьте условие, если результат преобразования является NaN, выведите в консоль сообщение 'Неправильный формат даты', в другом случае, выведите сообщение 'Правильный формат даты'.
 // Подсказка: используйте условие if...else
-const wrongDate = new Date(Date.parse('2023/06/15'));
-if (isNaN('wrongDate')) {
+const wrongDate = new Date(Date.parse('2023-06-15'));
+if (isNaN(wrongDate)) {
     console.log("Неправильный формат двты" )
 } else {
   console.log( "Правильный формат даты" );
@@ -127,7 +127,7 @@ else if (number > 100 &&number < 1000) {
 };
 //Задание 23
 // Используя цикл if...else, проверьте является ли переменная number положительным или нулём. Результат выведите в консоль.
-if (number > 0 || 0) {
+if (number >= 0) {
   console.log("число положительное или нуль")
 }
 else {
@@ -184,7 +184,7 @@ switch(new Date().getDay()) {
   case 6:
     day = 'суббота';
     break;
-  case 7:
+  case 0:
     day = 'воскресенье';
     break;
   default:
